@@ -1,0 +1,95 @@
+USE [Banco_USCS]
+
+CREATE TABLE Cadastro (
+
+Id_Usuario int IDENTITY(1, 1) PRIMARY KEY,
+Nome varchar(50),
+Email varchar(100),
+Senha varchar (100),
+Status varchar (50)
+);
+
+CREATE TABLE Aluno (
+
+Nome varchar(50),
+Id_Aula int,
+Email varchar(100),
+Senha varchar (100),
+Id_Usuario int,
+Pontos int,
+
+CONSTRAINT FK_id_usuario FOREIGN KEY (Id_Usuario)
+    REFERENCES dbo.Cadastro(Id_Usuario),
+
+CONSTRAINT FK_id_aula FOREIGN KEY (Id_Aula)
+    REFERENCES dbo.Aula(Id_Aula)
+);
+
+CREATE TABLE Inventario (
+
+Id_Usuario int,
+Id_Medalha int,
+Qtd_Medalha int, 
+
+
+CONSTRAINT FK_id_u_inventario FOREIGN KEY (Id_Usuario)
+    REFERENCES dbo.Cadastro(Id_Usuario),
+CONSTRAINT FK_id_medalha FOREIGN KEY (Id_Medalha)
+    REFERENCES dbo.Medalha(Id_Medalha)
+);
+
+CREATE TABLE Medalha (
+
+
+Id_Medalha int IDENTITY(1, 1) PRIMARY KEY,
+Nome_Medalha varchar(50),
+
+);
+
+CREATE TABLE Aula (
+
+Id_Aula int IDENTITY(1,1) PRIMARY KEY,
+Id_Biblioteca int,
+Id_Suporte int
+
+CONSTRAINT FK_id_biblioteca FOREIGN KEY (Id_Biblioteca)
+    REFERENCES dbo.Biblioteca(Id_Biblioteca),
+	
+	CONSTRAINT FK_id_duporte FOREIGN KEY (Id_Suporte)
+    REFERENCES dbo.Suporte(Id_Suporte)
+
+);
+
+CREATE TABLE Biblioteca (
+
+Id_Biblioteca INT IDENTITY(1,1) PRIMARY KEY,
+Pontuacao int,
+Linguagem varchar(50),
+);
+
+CREATE TABLE Suporte (
+
+Id_Suporte INT IDENTITY(1,1) PRIMARY KEY,
+Duvidas varchar(100)
+
+
+);
+
+CREATE TABLE Professor (
+
+
+Id_Usuario int,
+Id_Aula int
+Nome varchar(100),
+Email varchar(150),
+Senha varchar(150),
+
+
+CONSTRAINT FK_id_u_professor FOREIGN KEY (Id_Usuario)
+    REFERENCES dbo.Cadastro(Id_Usuario),
+
+CONSTRAINT FK_id_aula FOREIGN KEY (Id_Aula)
+    REFERENCES dbo.Aula(Id_Aula)
+
+);
+
